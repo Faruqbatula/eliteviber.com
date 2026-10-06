@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tidyroll Support</title>
+<meta name="description" content="Help with Tidyroll: Recently Deleted, iPhone Storage, Limited access and iCloud Shared Library.">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<style>
+/* Bold Tiles Refined (BUILD.md §3). System fonts only; nothing loaded from anywhere else. */
+:root {
+  --bg: #FFFFFF; --surface: #F7F6FC; --stroke: #E9E7F5; --text: #1A1A2E; --secondary: #5F5E5A;
+  --violet: #534AB7; --violet-text: #FFFFFF; --violet-sub: #E2E0FB; --link: #534AB7;
+  --dup-tile: #FAECE7; --dup-text: #712B13; --dup-accent: #D85A30;
+  --sim-tile: #EEEDFE; --sim-text: #3C3489; --sim-accent: #7F77DD;
+  --shot-tile: #E1F5EE; --shot-text: #085041; --shot-accent: #1D9E75;
+  --vid-tile: #FAEEDA; --vid-text: #633806; --vid-accent: #BA7517;
+  --live-tile: #FBEAF0; --live-text: #72243E; --live-accent: #D4537E;
+  --blur-tile: #E6F1FB; --blur-text: #0C447C; --blur-accent: #378ADD;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121218; --surface: #1C1B25; --stroke: #2C2B38; --text: #F2F1F7; --secondary: #ABA9B6;
+    --violet: #3F3794; --violet-text: #FFFFFF; --violet-sub: #DAD7FA; --link: #9D96F0;
+    --dup-tile: #3A1F16; --dup-text: #F7C7B4; --dup-accent: #F0875F;
+    --sim-tile: #27244C; --sim-text: #D2CEFB; --sim-accent: #9D96F0;
+    --shot-tile: #10362B; --shot-text: #A6E5CD; --shot-accent: #3CC495;
+    --vid-tile: #3A2B10; --vid-text: #F5D08F; --vid-accent: #E0A23A;
+    --live-tile: #3E1A29; --live-text: #F6BDD1; --live-accent: #E87BA2;
+    --blur-tile: #122D48; --blur-text: #B6D7F6; --blur-accent: #5AA5EE;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.page { max-width: 720px; margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) 16px 48px; }
+header.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+header.brand a { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; }
+.mark { width: 44px; height: 44px; flex: none; }
+.brand-name { font-weight: 700; font-size: 20px; }
+.brand-by { color: var(--secondary); font-size: 14px; }
+h1 { font-size: 34px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 { font-size: 21px; line-height: 1.25; margin: 0 0 8px; }
+p { margin: 0 0 12px; }
+.lede { color: var(--secondary); margin-bottom: 24px; }
+.hero {
+  background: var(--violet); color: var(--violet-text); border-radius: 22px; padding: 22px 20px; margin-bottom: 28px;
+}
+.hero h2 { font-size: 24px; margin-bottom: 10px; }
+.hero ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; color: var(--violet-sub); }
+.hero li { position: relative; padding-left: 26px; }
+.hero li::before { content: "✓"; color: var(--violet-text); font-weight: 700; position: absolute; left: 0; }
+section.card {
+  border-radius: 14px; padding: 18px 18px 8px; margin-bottom: 14px; position: relative;
+}
+section.card h2 { display: flex; align-items: center; gap: 10px; }
+section.card h2::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none;
+}
+.dup { background: var(--dup-tile); color: var(--dup-text); --accent: var(--dup-accent); }
+.sim { background: var(--sim-tile); color: var(--sim-text); --accent: var(--sim-accent); }
+.shot { background: var(--shot-tile); color: var(--shot-text); --accent: var(--shot-accent); }
+.vid { background: var(--vid-tile); color: var(--vid-text); --accent: var(--vid-accent); }
+.live { background: var(--live-tile); color: var(--live-text); --accent: var(--live-accent); }
+.blur { background: var(--blur-tile); color: var(--blur-text); --accent: var(--blur-accent); }
+.plain { background: var(--surface); border: 1px solid var(--stroke); --accent: var(--link); }
+.card ul { margin: 0 0 12px; padding-left: 20px; }
+.card li { margin-bottom: 4px; }
+.card a, .plain a, footer a, .page > p a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+footer { margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--stroke); color: var(--secondary); font-size: 15px; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 10px; }
+footer nav a { color: var(--link); }
+@media (min-width: 640px) { h1 { font-size: 40px; } .page { padding-top: 40px; } }
+
+details.card { border-radius: 14px; margin-bottom: 12px; padding: 0; }
+details.card summary {
+  list-style: none; cursor: pointer; padding: 16px 48px 16px 18px; font-weight: 600; font-size: 18px; line-height: 1.35;
+  position: relative; min-height: 44px; display: flex; align-items: center; gap: 10px;
+}
+details.card summary::-webkit-details-marker { display: none; }
+details.card summary::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none; }
+details.card summary::after {
+  content: "+"; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: 400;
+}
+details.card[open] summary::after { content: "−"; }
+details.card summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 14px; }
+details.card .answer { padding: 0 18px 8px; }
+details.card ol { margin: 0 0 12px; padding-left: 22px; }
+details.card li { margin-bottom: 4px; }
+details.card a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.contact {
+  background: var(--surface); border: 1px solid var(--stroke); border-radius: 22px; padding: 20px; margin: 28px 0 8px;
+}
+.button {
+  display: flex; align-items: center; justify-content: center; min-height: 56px; margin-top: 14px; padding: 0 20px;
+  background: #C04F25; color: #FFFFFF; border-radius: 16px; font-weight: 600; text-decoration: none; text-align: center;
+}
+@media (prefers-color-scheme: dark) { .button { background: #F08A63; color: #1A0B05; } }
+h2.section { font-size: 22px; margin: 28px 0 12px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="brand">
+    <a href="/tidyroll/">
+      <svg class="mark" viewBox="0 0 44 44" aria-hidden="true">
+        <rect width="44" height="44" rx="10" fill="#534AB7"/>
+        <circle cx="22" cy="22" r="12" fill="none" stroke="#EEEDFE" stroke-opacity=".35" stroke-width="5"/>
+        <path d="M22 10a12 12 0 0 1 11.4 8.3" fill="none" stroke="#F0875F" stroke-width="5"/>
+        <path d="M33.4 18.3A12 12 0 0 1 28 32.4" fill="none" stroke="#3CC495" stroke-width="5"/>
+        <path d="M28 32.4A12 12 0 0 1 12.3 29" fill="none" stroke="#E87BA2" stroke-width="5"/>
+        <path d="M22 17.5l1.2 3.3 3.3 1.2-3.3 1.2L22 26.5l-1.2-3.3-3.3-1.2 3.3-1.2z" fill="#FFFFFF"/>
+      </svg>
+      <span><span class="brand-name">Tidyroll</span><br><span class="brand-by">by Eliteviber</span></span>
+    </a>
+  </header>
+
+  <h1>Tidyroll support</h1>
+  <p class="lede">A calm way to clear up your camera roll on iPhone and iPad. Free forever, with no ads and no account. Nothing ever leaves your device, and nothing is deleted without Apple's own confirmation.</p>
+
+  <h2 class="section">Common questions</h2>
+
+  <details class="card dup">
+    <summary>I deleted photos. Why hasn't my space come back?</summary>
+    <div class="answer">
+      <p>Photos keeps deleted items in <strong>Recently Deleted</strong> for 30 days, so you can change your mind. The space comes back when they're removed from there: automatically after 30 days, or straight away if you empty it. Only you can empty it; Tidyroll can't do it for you.</p>
+      <ol>
+        <li>Open the <strong>Photos</strong> app.</li>
+        <li>Scroll down to <strong>Utilities</strong> and tap <strong>Recently Deleted</strong>.</li>
+        <li>Unlock it with Face ID, Touch ID or your passcode.</li>
+        <li>Tap <strong>Select</strong>, then <strong>Delete All</strong>.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="card sim">
+    <summary>Why does Settings show a different number?</summary>
+    <div class="answer">
+      <p>Tidyroll counts the photos and videos themselves. Settings › General › iPhone Storage counts differently, so the two numbers rarely match. That's normal.</p>
+      <ul>
+        <li><strong>Optimise iPhone Storage:</strong> if it's on, iOS keeps small versions on your device and the originals in iCloud. Settings may count the space iOS could free on its own.</li>
+        <li><strong>Recently Deleted:</strong> deleted photos still take space for 30 days, until it's emptied, both on your device and in iCloud.</li>
+        <li><strong>iOS counts differently:</strong> Settings adds things Tidyroll can't see, such as caches, shared albums and system data, and updates on its own schedule.</li>
+      </ul>
+      <p>Tidyroll measures sizes from the files themselves wherever it can. When a size is an estimate, it says "about".</p>
+    </div>
+  </details>
+
+  <details class="card shot">
+    <summary>What does Optimise iPhone Storage change?</summary>
+    <div class="answer">
+      <p>With iCloud Photos and Optimise iPhone Storage on, many originals live only in iCloud, and your device keeps smaller versions. So Tidyroll shows two numbers for everything: what deleting it frees <strong>on this iPhone</strong> (or iPad), and what it frees <strong>in iCloud</strong>. A video stored only in iCloud says "In iCloud only".</p>
+      <p>Tidyroll never downloads originals to scan them. A photo or video only comes from iCloud if you open it to look at it.</p>
+    </div>
+  </details>
+
+  <details class="card vid">
+    <summary>I chose Limited access. Why is nothing pre-selected?</summary>
+    <div class="answer">
+      <p>With Limited access, Tidyroll can only see the photos you picked, and it can't see your albums. To be safe, it never pre-selects anything for deletion: you choose every photo yourself. You can still review and clear the photos it can see.</p>
+      <p>To let Tidyroll see your whole library, open Tidyroll's <strong>Settings &amp; details</strong> and tap <strong>Allow all photos</strong>, or go to iOS <strong>Settings › Apps › Tidyroll › Photos</strong> and choose <strong>Full Access</strong>.</p>
+    </div>
+  </details>
+
+  <details class="card live">
+    <summary>I use an iCloud Shared Library. Is there anything to know?</summary>
+    <div class="answer">
+      <p>Yes. Deleting a photo that's in a Shared Library removes it for everyone in it. iOS doesn't let apps tell which photos are shared, so Tidyroll reminds you right above the Delete button, and Apple's confirmation dialog is always the last step.</p>
+    </div>
+  </details>
+
+  <details class="card blur">
+    <summary>Will Tidyroll delete anything on its own?</summary>
+    <div class="answer">
+      <p>Never. Photos you pick wait in Tidyroll's basket until you decide to delete them, and every delete needs Apple's confirmation. Favourites, photos in your albums and the suggested keeper of each group are never pre-selected. Turning a Live Photo into a still works the same way: the original goes to Recently Deleted, and you can get it back for 30 days.</p>
+    </div>
+  </details>
+
+  <details class="card plain">
+    <summary>Does Tidyroll upload my photos?</summary>
+    <div class="answer">
+      <p>No. Tidyroll has no servers, no account and no tracking, and everything happens on your device. Read the <a href="/tidyroll/privacy/">privacy policy</a>.</p>
+    </div>
+  </details>
+
+  <div class="contact">
+    <h2>Still stuck?</h2>
+    <p>Email us and we'll help. It helps to say which iPhone or iPad you have and what you were doing.</p>
+    <a class="button" href="mailto:eliteviber@outlook.com?subject=Tidyroll%20support">Email eliteviber@outlook.com</a>
+  </div>
+
+  <footer>
+    <nav><a href="/tidyroll/privacy/">Privacy policy</a><a href="mailto:eliteviber@outlook.com">Contact</a></nav>
+    <p>© 2026 Eliteviber. Tidyroll is free, with no ads.</p>
+  </footer>
+</div>
+</body>
+</html>
