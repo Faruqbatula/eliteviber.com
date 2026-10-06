@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reroll Support</title>
+<meta name="description" content="Help with Reroll: typed actions, where the storyteller runs, Reroll Plus, restoring purchases and privacy.">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<style>
+/* Bold Tiles Refined (BUILD.md §3). System fonts only; nothing loaded from anywhere else. */
+:root {
+  --bg: #FFFFFF; --surface: #F7F6FC; --stroke: #E9E7F5; --text: #1A1A2E; --secondary: #5F5E5A;
+  --violet: #534AB7; --violet-text: #FFFFFF; --violet-sub: #E2E0FB; --link: #534AB7;
+  --dup-tile: #FAECE7; --dup-text: #712B13; --dup-accent: #D85A30;
+  --sim-tile: #EEEDFE; --sim-text: #3C3489; --sim-accent: #7F77DD;
+  --shot-tile: #E1F5EE; --shot-text: #085041; --shot-accent: #1D9E75;
+  --vid-tile: #FAEEDA; --vid-text: #633806; --vid-accent: #BA7517;
+  --live-tile: #FBEAF0; --live-text: #72243E; --live-accent: #D4537E;
+  --blur-tile: #E6F1FB; --blur-text: #0C447C; --blur-accent: #378ADD;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121218; --surface: #1C1B25; --stroke: #2C2B38; --text: #F2F1F7; --secondary: #ABA9B6;
+    --violet: #3F3794; --violet-text: #FFFFFF; --violet-sub: #DAD7FA; --link: #9D96F0;
+    --dup-tile: #3A1F16; --dup-text: #F7C7B4; --dup-accent: #F0875F;
+    --sim-tile: #27244C; --sim-text: #D2CEFB; --sim-accent: #9D96F0;
+    --shot-tile: #10362B; --shot-text: #A6E5CD; --shot-accent: #3CC495;
+    --vid-tile: #3A2B10; --vid-text: #F5D08F; --vid-accent: #E0A23A;
+    --live-tile: #3E1A29; --live-text: #F6BDD1; --live-accent: #E87BA2;
+    --blur-tile: #122D48; --blur-text: #B6D7F6; --blur-accent: #5AA5EE;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.page { max-width: 720px; margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) 16px 48px; }
+header.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+header.brand a { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; }
+.mark { width: 44px; height: 44px; flex: none; }
+.brand-name { font-weight: 700; font-size: 20px; }
+.brand-by { color: var(--secondary); font-size: 14px; }
+h1 { font-size: 34px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 { font-size: 21px; line-height: 1.25; margin: 0 0 8px; }
+p { margin: 0 0 12px; }
+.lede { color: var(--secondary); margin-bottom: 24px; }
+.hero {
+  background: var(--violet); color: var(--violet-text); border-radius: 22px; padding: 22px 20px; margin-bottom: 28px;
+}
+.hero h2 { font-size: 24px; margin-bottom: 10px; }
+.hero ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; color: var(--violet-sub); }
+.hero li { position: relative; padding-left: 26px; }
+.hero li::before { content: "✓"; color: var(--violet-text); font-weight: 700; position: absolute; left: 0; }
+section.card {
+  border-radius: 14px; padding: 18px 18px 8px; margin-bottom: 14px; position: relative;
+}
+section.card h2 { display: flex; align-items: center; gap: 10px; }
+section.card h2::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none;
+}
+.dup { background: var(--dup-tile); color: var(--dup-text); --accent: var(--dup-accent); }
+.sim { background: var(--sim-tile); color: var(--sim-text); --accent: var(--sim-accent); }
+.shot { background: var(--shot-tile); color: var(--shot-text); --accent: var(--shot-accent); }
+.vid { background: var(--vid-tile); color: var(--vid-text); --accent: var(--vid-accent); }
+.live { background: var(--live-tile); color: var(--live-text); --accent: var(--live-accent); }
+.blur { background: var(--blur-tile); color: var(--blur-text); --accent: var(--blur-accent); }
+.plain { background: var(--surface); border: 1px solid var(--stroke); --accent: var(--link); }
+.card ul { margin: 0 0 12px; padding-left: 20px; }
+.card li { margin-bottom: 4px; }
+.card a, .plain a, footer a, .page > p a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+footer { margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--stroke); color: var(--secondary); font-size: 15px; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 10px; }
+footer nav a { color: var(--link); }
+@media (min-width: 640px) { h1 { font-size: 40px; } .page { padding-top: 40px; } }
+
+details.card { border-radius: 14px; margin-bottom: 12px; padding: 0; }
+details.card summary {
+  list-style: none; cursor: pointer; padding: 16px 48px 16px 18px; font-weight: 600; font-size: 18px; line-height: 1.35;
+  position: relative; min-height: 44px; display: flex; align-items: center; gap: 10px;
+}
+details.card summary::-webkit-details-marker { display: none; }
+details.card summary::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none; }
+details.card summary::after {
+  content: "+"; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: 400;
+}
+details.card[open] summary::after { content: "−"; }
+details.card summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 14px; }
+details.card .answer { padding: 0 18px 8px; }
+details.card ol { margin: 0 0 12px; padding-left: 22px; }
+details.card li { margin-bottom: 4px; }
+details.card a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.contact {
+  background: var(--surface); border: 1px solid var(--stroke); border-radius: 22px; padding: 20px; margin: 28px 0 8px;
+}
+.button {
+  display: flex; align-items: center; justify-content: center; min-height: 56px; margin-top: 14px; padding: 0 20px;
+  background: var(--violet); color: var(--violet-text); border-radius: 16px; font-weight: 600; text-decoration: none; text-align: center;
+}
+h2.section { font-size: 22px; margin: 28px 0 12px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="brand">
+    <a href="/reroll/">
+      <img class="mark" src="/images/reroll.png" width="44" height="44" alt="" aria-hidden="true">
+      <span><span class="brand-name">Reroll</span><br><span class="brand-by">by Eliteviber</span></span>
+    </a>
+  </header>
+
+  <h1>Reroll support</h1>
+  <p class="lede">A text life simulator for iPhone and iPad. You are born a stranger, you age a year at a time, and you can type any action you can imagine. Free to play, with no ads and no account, and an optional Plus subscription.</p>
+
+  <a class="button" href="https://apps.apple.com/app/id6791719417">Get Reroll on the App Store</a>
+
+  <h2 class="section">Common questions</h2>
+
+  <details class="card dup">
+    <summary>Does what I type leave my iPhone?</summary>
+    <div class="answer">
+      <p>It depends on your iPhone, and the app tells you which applies to yours.</p>
+      <ul>
+        <li><strong>iPhones with Apple Intelligence</strong> write your typed action on the device itself. Nothing is sent anywhere.</li>
+        <li><strong>iPhones without it</strong> can't do that locally, so the action you type is sent to our server to be written, then <strong>discarded</strong>. It is never stored and never used to train anything.</li>
+      </ul>
+      <p>Open <strong>Settings</strong> inside Reroll and look at <strong>Where things happen</strong>. The <strong>Typed actions</strong> row says either "On this iPhone" or "On our server", in those words. Full detail is in the <a href="https://faruqbatula.github.io/Reroll-Privacy/">privacy policy</a>.</p>
+    </div>
+  </details>
+
+  <details class="card sim">
+    <summary>Settings says AI life events are "not on this iPhone". Is something broken?</summary>
+    <div class="answer">
+      <p>No, and you aren't missing any of the game. These are two separate features:</p>
+      <ul>
+        <li><strong>AI-written life events</strong> need Apple Intelligence. Where it isn't available, your years come from Reroll's hand-written story library instead — that's the complete game, start to finish.</li>
+        <li><strong>Typed actions</strong> work either way. They are the "do anything" bar at the bottom of the screen.</li>
+      </ul>
+      <p>If your iPhone supports Apple Intelligence but events still aren't written for you, check that Apple Intelligence is turned on in iOS Settings and that Siri's language matches your device language.</p>
+    </div>
+  </details>
+
+  <details class="card shot">
+    <summary>What does Reroll Plus include?</summary>
+    <div class="answer">
+      <p>Plus lifts the limit on typed actions. What that means depends on your iPhone:</p>
+      <ul>
+        <li>Where the storyteller runs <strong>on your device</strong>, Plus removes the daily cap entirely.</li>
+        <li>Where it runs <strong>on our server</strong>, Plus is what unlocks typed actions at all, with a fair-use limit of 100 a day.</li>
+      </ul>
+      <p>Plus is sold as a monthly or annual subscription, or a one-off lifetime purchase. The subscriptions come with a free trial; the App Store shows its exact length before you confirm, and the app reads the same figure rather than quoting its own. The rest of the game is never held behind it, and Reroll is ad-free with or without Plus.</p>
+    </div>
+  </details>
+
+  <details class="card vid">
+    <summary>How do I restore a purchase, or cancel?</summary>
+    <div class="answer">
+      <p>Open the Plus screen in Reroll — the "Go unlimited" link under the typed-action bar will take you there.</p>
+      <ol>
+        <li><strong>Restore Purchases</strong> re-syncs a subscription or lifetime unlock you already own, on this or any device signed in to the same Apple Account.</li>
+        <li><strong>Manage Subscription</strong> opens Apple's own screen, where you can cancel or switch plan.</li>
+      </ol>
+      <p>Apple handles every payment. We never see your card details, and we have no account to delete. Cancelling is always Apple's screen, never ours.</p>
+    </div>
+  </details>
+
+  <details class="card live">
+    <summary>Will I lose a life if I close the app?</summary>
+    <div class="answer">
+      <p>No. Your life is written to the device as you play, not saved only at the end, so it survives closing the app, restarting your iPhone and updating Reroll. Reopen the app and you carry on from the year you were on.</p>
+      <p>Lives live only on your device. There is no account and no backup on our side, so removing the app removes them.</p>
+    </div>
+  </details>
+
+  <details class="card blur">
+    <summary>I typed an action and nothing came of it. Why?</summary>
+    <div class="answer">
+      <p>Usually one of three things, and none of them costs you anything:</p>
+      <ul>
+        <li><strong>The world said no.</strong> Actions that are implausible for your age, era, country or money tend to fail the way they would in life. That's the game working, not a bug.</li>
+        <li><strong>The storyteller didn't answer in time.</strong> Rather than show you an error, Reroll quietly carries on with the year. Your allowance isn't spent when this happens.</li>
+        <li><strong>It was refused.</strong> A small number of things are blocked whatever you type, and Reroll says so in the story's own voice rather than lecturing you. Refusals never count against your allowance.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="card plain">
+    <summary>Does Reroll upload my lives?</summary>
+    <div class="answer">
+      <p>No. Your lives, your avatar and every counter in the app stay on your device, and there are no accounts, no third-party analytics and no ad networks. The only thing that can leave your iPhone is a typed action on a device that can't write it locally, described above and in the <a href="https://faruqbatula.github.io/Reroll-Privacy/">privacy policy</a>.</p>
+    </div>
+  </details>
+
+  <div class="contact">
+    <h2>Still stuck?</h2>
+    <p>Email us and we'll help. It helps to say which iPhone or iPad you have and what you were doing.</p>
+    <a class="button" href="mailto:eliteviber@outlook.com?subject=Reroll%20support">Email eliteviber@outlook.com</a>
+  </div>
+
+  <footer>
+    <nav><a href="https://faruqbatula.github.io/Reroll-Privacy/">Privacy policy</a><a href="https://faruqbatula.github.io/Reroll-Terms/">Terms of use</a><a href="mailto:eliteviber@outlook.com">Contact</a></nav>
+    <p>© 2026 Eliteviber. Reroll is free to play, with no ads.</p>
+  </footer>
+</div>
+</body>
+</html>
