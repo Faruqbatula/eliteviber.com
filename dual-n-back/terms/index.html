@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dual N-Back Terms of Use</title>
+<meta name="description" content="Terms of use for the Dual N-Back app by Eliteviber.">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<style>
+/* Bold Tiles Refined (BUILD.md §3). System fonts only; nothing loaded from anywhere else. */
+:root {
+  --bg: #FFFFFF; --surface: #F7F6FC; --stroke: #E9E7F5; --text: #1A1A2E; --secondary: #5F5E5A;
+  --violet: #534AB7; --violet-text: #FFFFFF; --violet-sub: #E2E0FB; --link: #534AB7;
+  --dup-tile: #FAECE7; --dup-text: #712B13; --dup-accent: #D85A30;
+  --sim-tile: #EEEDFE; --sim-text: #3C3489; --sim-accent: #7F77DD;
+  --shot-tile: #E1F5EE; --shot-text: #085041; --shot-accent: #1D9E75;
+  --vid-tile: #FAEEDA; --vid-text: #633806; --vid-accent: #BA7517;
+  --live-tile: #FBEAF0; --live-text: #72243E; --live-accent: #D4537E;
+  --blur-tile: #E6F1FB; --blur-text: #0C447C; --blur-accent: #378ADD;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121218; --surface: #1C1B25; --stroke: #2C2B38; --text: #F2F1F7; --secondary: #ABA9B6;
+    --violet: #3F3794; --violet-text: #FFFFFF; --violet-sub: #DAD7FA; --link: #9D96F0;
+    --dup-tile: #3A1F16; --dup-text: #F7C7B4; --dup-accent: #F0875F;
+    --sim-tile: #27244C; --sim-text: #D2CEFB; --sim-accent: #9D96F0;
+    --shot-tile: #10362B; --shot-text: #A6E5CD; --shot-accent: #3CC495;
+    --vid-tile: #3A2B10; --vid-text: #F5D08F; --vid-accent: #E0A23A;
+    --live-tile: #3E1A29; --live-text: #F6BDD1; --live-accent: #E87BA2;
+    --blur-tile: #122D48; --blur-text: #B6D7F6; --blur-accent: #5AA5EE;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.page { max-width: 720px; margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) 16px 48px; }
+header.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+header.brand a { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; }
+.mark { width: 44px; height: 44px; flex: none; }
+.brand-name { font-weight: 700; font-size: 20px; }
+.brand-by { color: var(--secondary); font-size: 14px; }
+h1 { font-size: 34px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 { font-size: 21px; line-height: 1.25; margin: 0 0 8px; }
+p { margin: 0 0 12px; }
+.lede { color: var(--secondary); margin-bottom: 24px; }
+.hero {
+  background: var(--violet); color: var(--violet-text); border-radius: 22px; padding: 22px 20px; margin-bottom: 28px;
+}
+.hero h2 { font-size: 24px; margin-bottom: 10px; }
+.hero ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; color: var(--violet-sub); }
+.hero li { position: relative; padding-left: 26px; }
+.hero li::before { content: "✓"; color: var(--violet-text); font-weight: 700; position: absolute; left: 0; }
+section.card {
+  border-radius: 14px; padding: 18px 18px 8px; margin-bottom: 14px; position: relative;
+}
+section.card h2 { display: flex; align-items: center; gap: 10px; }
+section.card h2::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none;
+}
+.dup { background: var(--dup-tile); color: var(--dup-text); --accent: var(--dup-accent); }
+.sim { background: var(--sim-tile); color: var(--sim-text); --accent: var(--sim-accent); }
+.shot { background: var(--shot-tile); color: var(--shot-text); --accent: var(--shot-accent); }
+.vid { background: var(--vid-tile); color: var(--vid-text); --accent: var(--vid-accent); }
+.live { background: var(--live-tile); color: var(--live-text); --accent: var(--live-accent); }
+.blur { background: var(--blur-tile); color: var(--blur-text); --accent: var(--blur-accent); }
+.plain { background: var(--surface); border: 1px solid var(--stroke); --accent: var(--link); }
+.card ul { margin: 0 0 12px; padding-left: 20px; }
+.card li { margin-bottom: 4px; }
+.card a, .plain a, footer a, .page > p a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+footer { margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--stroke); color: var(--secondary); font-size: 15px; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 10px; }
+footer nav a { color: var(--link); }
+@media (min-width: 640px) { h1 { font-size: 40px; } .page { padding-top: 40px; } }
+
+img.mark { border-radius: 10px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="brand">
+    <a href="/dual-n-back/">
+      <img class="mark" src="/images/dual-n-back.png" width="44" height="44" alt="" aria-hidden="true">
+      <span><span class="brand-name">Dual N-Back</span><br><span class="brand-by">by Eliteviber</span></span>
+    </a>
+  </header>
+
+  <h1>Terms of Use</h1>
+  <p class="lede">Effective 6 October 2026. These terms cover the Dual N-Back app for iPhone and iPad, made by Eliteviber.</p>
+
+  <div class="hero">
+    <h2>The short version.</h2>
+    <ul>
+      <li>N-1 and N-2 are free. Pro unlocks N-3 to N-5.</li>
+      <li>Apple takes the payment and manages subscriptions.</li>
+      <li>Cancel any time in your Apple Account settings.</li>
+      <li>It is a training tool, not a medical device.</li>
+    </ul>
+  </div>
+
+  <section class="card sim">
+    <h2>Using the app</h2>
+    <p>We grant you a personal, non-transferable licence to use Dual N-Back on devices you own or control, for your own use. Please do not copy it, resell it, or try to take it apart or work around its purchases.</p>
+    <p>Using the App Store also means Apple's own terms apply, including the standard licence agreement at <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" rel="noopener noreferrer">apple.com/legal/internet-services/itunes/dev/stdeula</a>.</p>
+  </section>
+
+  <section class="card shot">
+    <h2>Pro, and how payment works</h2>
+    <p>N-1 and N-2 are free to use with no time limit. <strong>Pro</strong> unlocks N-3, N-4 and N-5 and is available monthly, yearly, or as a one-off lifetime unlock.</p>
+    <ul>
+      <li>Payment is taken by <strong>Apple</strong>, through your Apple Account. We never handle your payment details.</li>
+      <li>Subscriptions renew automatically unless cancelled at least 24 hours before the current period ends.</li>
+      <li>Manage or cancel in the iOS Settings app: your name, then <strong>Subscriptions</strong>. Cancelling stops the next renewal and you keep Pro until the paid period ends.</li>
+      <li>Prices are shown in the app in your own currency before you buy, and may differ by country.</li>
+    </ul>
+  </section>
+
+  <section class="card vid">
+    <h2>Free trial</h2>
+    <p>The monthly and yearly plans may start with a <strong>7-day free trial</strong>. The trial is offered by Apple and only to Apple Accounts that are eligible — generally, those that have not used a trial for this app before. The app only advertises a trial when Apple confirms you are eligible for one.</p>
+    <p>Unless you cancel at least 24 hours before it ends, the trial becomes a paid subscription automatically. Cancel in the iOS Settings app under Subscriptions.</p>
+  </section>
+
+  <section class="card live">
+    <h2>Refunds</h2>
+    <p>Purchases are made through Apple, so refunds are handled by Apple and not by us. You can request one at <a href="https://reportaproblem.apple.com" rel="noopener noreferrer">reportaproblem.apple.com</a>. Nothing here affects your statutory rights as a consumer.</p>
+  </section>
+
+  <section class="card dup">
+    <h2>It is training, not treatment</h2>
+    <p>Dual N-Back is a brain-training exercise for your own interest and practice. It is <strong>not a medical device</strong>, and it does not diagnose, treat, prevent or cure any condition.</p>
+    <p>We make no promise that training will improve your memory, your focus, your exam results or your performance at anything in particular. Research on n-back training is genuinely mixed. If you have a health concern about your memory or concentration, please speak to a doctor rather than relying on an app.</p>
+  </section>
+
+  <section class="card blur">
+    <h2>Availability and changes</h2>
+    <p>We may update the app to add features, fix problems or keep it working with new versions of iOS. We may also change or stop parts of it. If we ever withdraw a paid feature you have already bought, we will tell you in the app first.</p>
+    <p>These terms may change. The current version always lives on this page, with the effective date at the top.</p>
+  </section>
+
+  <section class="card plain">
+    <h2>Liability</h2>
+    <p>Dual N-Back is provided as it is. To the extent the law allows, we are not liable for indirect or unforeseeable loss arising from using it.</p>
+    <p>Nothing in these terms limits liability that cannot legally be limited, including for death or personal injury caused by negligence, or for fraud. If you are a consumer, your statutory rights are unaffected.</p>
+  </section>
+
+  <section class="card plain">
+    <h2>Law</h2>
+    <p>These terms are governed by the laws of England and Wales. If you are a consumer, you can bring a claim in the courts of the part of the UK you live in.</p>
+  </section>
+
+  <section class="card plain">
+    <h2>Contact</h2>
+    <p>Dual N-Back is made by Eliteviber, based in London, United Kingdom.</p>
+    <p>Questions about these terms? Email <a href="mailto:eliteviber@outlook.com">eliteviber@outlook.com</a>.</p>
+  </section>
+
+  <footer>
+    <nav><a href="/dual-n-back/">Dual N-Back support</a><a href="/dual-n-back/privacy/">Privacy policy</a><a href="/dual-n-back/terms/">Terms of use</a><a href="mailto:eliteviber@outlook.com">Contact</a></nav>
+    <p>© 2026 Eliteviber. Dual N-Back is free to try, with no ads.</p>
+  </footer>
+</div>
+</body>
+</html>
