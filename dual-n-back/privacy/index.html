@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dual N-Back Privacy Policy</title>
+<meta name="description" content="Dual N-Back collects no data. Everything stays on your device.">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<style>
+/* Bold Tiles Refined (BUILD.md §3). System fonts only; nothing loaded from anywhere else. */
+:root {
+  --bg: #FFFFFF; --surface: #F7F6FC; --stroke: #E9E7F5; --text: #1A1A2E; --secondary: #5F5E5A;
+  --violet: #534AB7; --violet-text: #FFFFFF; --violet-sub: #E2E0FB; --link: #534AB7;
+  --dup-tile: #FAECE7; --dup-text: #712B13; --dup-accent: #D85A30;
+  --sim-tile: #EEEDFE; --sim-text: #3C3489; --sim-accent: #7F77DD;
+  --shot-tile: #E1F5EE; --shot-text: #085041; --shot-accent: #1D9E75;
+  --vid-tile: #FAEEDA; --vid-text: #633806; --vid-accent: #BA7517;
+  --live-tile: #FBEAF0; --live-text: #72243E; --live-accent: #D4537E;
+  --blur-tile: #E6F1FB; --blur-text: #0C447C; --blur-accent: #378ADD;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121218; --surface: #1C1B25; --stroke: #2C2B38; --text: #F2F1F7; --secondary: #ABA9B6;
+    --violet: #3F3794; --violet-text: #FFFFFF; --violet-sub: #DAD7FA; --link: #9D96F0;
+    --dup-tile: #3A1F16; --dup-text: #F7C7B4; --dup-accent: #F0875F;
+    --sim-tile: #27244C; --sim-text: #D2CEFB; --sim-accent: #9D96F0;
+    --shot-tile: #10362B; --shot-text: #A6E5CD; --shot-accent: #3CC495;
+    --vid-tile: #3A2B10; --vid-text: #F5D08F; --vid-accent: #E0A23A;
+    --live-tile: #3E1A29; --live-text: #F6BDD1; --live-accent: #E87BA2;
+    --blur-tile: #122D48; --blur-text: #B6D7F6; --blur-accent: #5AA5EE;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.page { max-width: 720px; margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) 16px 48px; }
+header.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+header.brand a { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; }
+.mark { width: 44px; height: 44px; flex: none; }
+.brand-name { font-weight: 700; font-size: 20px; }
+.brand-by { color: var(--secondary); font-size: 14px; }
+h1 { font-size: 34px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 { font-size: 21px; line-height: 1.25; margin: 0 0 8px; }
+p { margin: 0 0 12px; }
+.lede { color: var(--secondary); margin-bottom: 24px; }
+.hero {
+  background: var(--violet); color: var(--violet-text); border-radius: 22px; padding: 22px 20px; margin-bottom: 28px;
+}
+.hero h2 { font-size: 24px; margin-bottom: 10px; }
+.hero ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; color: var(--violet-sub); }
+.hero li { position: relative; padding-left: 26px; }
+.hero li::before { content: "✓"; color: var(--violet-text); font-weight: 700; position: absolute; left: 0; }
+section.card {
+  border-radius: 14px; padding: 18px 18px 8px; margin-bottom: 14px; position: relative;
+}
+section.card h2 { display: flex; align-items: center; gap: 10px; }
+section.card h2::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none;
+}
+.dup { background: var(--dup-tile); color: var(--dup-text); --accent: var(--dup-accent); }
+.sim { background: var(--sim-tile); color: var(--sim-text); --accent: var(--sim-accent); }
+.shot { background: var(--shot-tile); color: var(--shot-text); --accent: var(--shot-accent); }
+.vid { background: var(--vid-tile); color: var(--vid-text); --accent: var(--vid-accent); }
+.live { background: var(--live-tile); color: var(--live-text); --accent: var(--live-accent); }
+.blur { background: var(--blur-tile); color: var(--blur-text); --accent: var(--blur-accent); }
+.plain { background: var(--surface); border: 1px solid var(--stroke); --accent: var(--link); }
+.card ul { margin: 0 0 12px; padding-left: 20px; }
+.card li { margin-bottom: 4px; }
+.card a, .plain a, footer a, .page > p a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+footer { margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--stroke); color: var(--secondary); font-size: 15px; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 10px; }
+footer nav a { color: var(--link); }
+@media (min-width: 640px) { h1 { font-size: 40px; } .page { padding-top: 40px; } }
+
+img.mark { border-radius: 10px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="brand">
+    <a href="/dual-n-back/">
+      <img class="mark" src="/images/dual-n-back.png" width="44" height="44" alt="" aria-hidden="true">
+      <span><span class="brand-name">Dual N-Back</span><br><span class="brand-by">by Eliteviber</span></span>
+    </a>
+  </header>
+
+  <h1>Privacy Policy</h1>
+  <p class="lede">Effective 6 October 2026. This policy covers the Dual N-Back app for iPhone and iPad, made by Eliteviber.</p>
+
+  <div class="hero">
+    <h2>Dual N-Back collects no data.</h2>
+    <ul>
+      <li>Your sessions and scores never leave your device.</li>
+      <li>No account, no ads, no tracking, no analytics.</li>
+      <li>No servers, and no third-party code of any kind.</li>
+      <li>Purchases are handled entirely by Apple.</li>
+    </ul>
+  </div>
+
+  <section class="card sim">
+    <h2>Everything stays on your device</h2>
+    <p>Dual N-Back is a self-contained app. It has no servers, no account and no code that sends anything over the internet. Your training happens on your iPhone or iPad and stays there.</p>
+    <p>Because nothing is uploaded, your history is not synced between your devices. If you train on both an iPhone and an iPad, each keeps its own results.</p>
+  </section>
+
+  <section class="card shot">
+    <h2>What the app saves, and where</h2>
+    <p>Everything Dual N-Back saves is stored locally on your device:</p>
+    <ul>
+      <li><strong>Your sessions</strong>: the level, the rounds, your accuracy and the round-by-round history, so the app can show your progress and streak.</li>
+      <li><strong>Your settings</strong>: level, session length, speed, voice, silent mode, haptics, theme and reminder time.</li>
+      <li><strong>Your name</strong>, if you choose to enter one. It is only used to greet you in the app.</li>
+    </ul>
+    <p>Like other app data, these are included in your device backup if you use one (iCloud Backup or a computer), which Apple and you control. Deleting the app deletes all of it. You can also erase everything inside the app with <strong>Settings › Reset All Progress</strong>.</p>
+  </section>
+
+  <section class="card dup">
+    <h2>Purchases</h2>
+    <p>Pro is sold through Apple's In-App Purchase system (StoreKit). Apple handles the payment, the receipt and the subscription. We never see or receive your card details, billing address or Apple Account details.</p>
+    <p>The app asks Apple whether this Apple Account currently has Pro, and whether it is eligible for the free trial, so it knows what to unlock and what to offer. That check happens between your device and Apple.</p>
+  </section>
+
+  <section class="card vid">
+    <h2>Reminders and sound</h2>
+    <p>The optional daily reminder is a <strong>local notification</strong>, scheduled on your device by your device. Nothing is sent to us or to anyone else, and no push server is involved. You can turn it off at any time in Settings.</p>
+    <p>The spoken letters use Apple's built-in speech synthesiser on your device. No audio is recorded, and the microphone is never used — the app does not request microphone access at all.</p>
+  </section>
+
+  <section class="card live">
+    <h2>Exporting and sharing</h2>
+    <p>You can export your session history as a CSV file from Settings. The file is created on your device and handed to Apple's share sheet, so nothing is sent anywhere unless you choose an app to send it with. We never receive a copy.</p>
+  </section>
+
+  <section class="card blur">
+    <h2>No third parties</h2>
+    <p>Dual N-Back contains no analytics, advertising, crash-reporting or tracking code, and no third-party software development kits. Its App Store privacy label is <strong>Data Not Collected</strong>.</p>
+    <p>If you have chosen in iOS to share analytics with app developers (Settings › Privacy &amp; Security › Analytics &amp; Improvements), Apple may share anonymous crash reports with us. That is Apple's feature, and you can turn it off there.</p>
+  </section>
+
+  <section class="card plain">
+    <h2>If you email us</h2>
+    <p>If you contact support, we receive what you choose to send, such as your email address and message. We use it only to reply to you, never for marketing, and we delete it on request.</p>
+    <p>You can ask to see or delete anything you have sent us. If you are unhappy with how we handle it, you can complain to the UK Information Commissioner's Office (<a href="https://ico.org.uk" rel="noopener noreferrer">ico.org.uk</a>).</p>
+  </section>
+
+  <section class="card plain">
+    <h2>Children</h2>
+    <p>Dual N-Back collects no data from anyone, including children.</p>
+  </section>
+
+  <section class="card plain">
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes, we will update it here and change the effective date at the top. Dual N-Back will never start collecting data without saying so clearly first.</p>
+  </section>
+
+  <section class="card plain">
+    <h2>Contact</h2>
+    <p>Dual N-Back is made by Eliteviber, based in London, United Kingdom.</p>
+    <p>Questions about privacy? Email <a href="mailto:eliteviber@outlook.com">eliteviber@outlook.com</a>.</p>
+  </section>
+
+  <footer>
+    <nav><a href="/dual-n-back/">Dual N-Back support</a><a href="/dual-n-back/privacy/">Privacy policy</a><a href="/dual-n-back/terms/">Terms of use</a><a href="mailto:eliteviber@outlook.com">Contact</a></nav>
+    <p>© 2026 Eliteviber. Dual N-Back is free to try, with no ads.</p>
+  </footer>
+</div>
+</body>
+</html>
