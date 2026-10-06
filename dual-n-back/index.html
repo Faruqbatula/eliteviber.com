@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dual N-Back Support</title>
+<meta name="description" content="Help with Dual N-Back: how to play, what is free, how scoring works, voices, iPad and purchases.">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<style>
+/* Bold Tiles Refined (BUILD.md §3). System fonts only; nothing loaded from anywhere else. */
+:root {
+  --bg: #FFFFFF; --surface: #F7F6FC; --stroke: #E9E7F5; --text: #1A1A2E; --secondary: #5F5E5A;
+  --violet: #534AB7; --violet-text: #FFFFFF; --violet-sub: #E2E0FB; --link: #534AB7;
+  --dup-tile: #FAECE7; --dup-text: #712B13; --dup-accent: #D85A30;
+  --sim-tile: #EEEDFE; --sim-text: #3C3489; --sim-accent: #7F77DD;
+  --shot-tile: #E1F5EE; --shot-text: #085041; --shot-accent: #1D9E75;
+  --vid-tile: #FAEEDA; --vid-text: #633806; --vid-accent: #BA7517;
+  --live-tile: #FBEAF0; --live-text: #72243E; --live-accent: #D4537E;
+  --blur-tile: #E6F1FB; --blur-text: #0C447C; --blur-accent: #378ADD;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121218; --surface: #1C1B25; --stroke: #2C2B38; --text: #F2F1F7; --secondary: #ABA9B6;
+    --violet: #3F3794; --violet-text: #FFFFFF; --violet-sub: #DAD7FA; --link: #9D96F0;
+    --dup-tile: #3A1F16; --dup-text: #F7C7B4; --dup-accent: #F0875F;
+    --sim-tile: #27244C; --sim-text: #D2CEFB; --sim-accent: #9D96F0;
+    --shot-tile: #10362B; --shot-text: #A6E5CD; --shot-accent: #3CC495;
+    --vid-tile: #3A2B10; --vid-text: #F5D08F; --vid-accent: #E0A23A;
+    --live-tile: #3E1A29; --live-text: #F6BDD1; --live-accent: #E87BA2;
+    --blur-tile: #122D48; --blur-text: #B6D7F6; --blur-accent: #5AA5EE;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.page { max-width: 720px; margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) 16px 48px; }
+header.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+header.brand a { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; }
+.mark { width: 44px; height: 44px; flex: none; }
+.brand-name { font-weight: 700; font-size: 20px; }
+.brand-by { color: var(--secondary); font-size: 14px; }
+h1 { font-size: 34px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 { font-size: 21px; line-height: 1.25; margin: 0 0 8px; }
+p { margin: 0 0 12px; }
+.lede { color: var(--secondary); margin-bottom: 24px; }
+.hero {
+  background: var(--violet); color: var(--violet-text); border-radius: 22px; padding: 22px 20px; margin-bottom: 28px;
+}
+.hero h2 { font-size: 24px; margin-bottom: 10px; }
+.hero ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; color: var(--violet-sub); }
+.hero li { position: relative; padding-left: 26px; }
+.hero li::before { content: "✓"; color: var(--violet-text); font-weight: 700; position: absolute; left: 0; }
+section.card {
+  border-radius: 14px; padding: 18px 18px 8px; margin-bottom: 14px; position: relative;
+}
+section.card h2 { display: flex; align-items: center; gap: 10px; }
+section.card h2::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none;
+}
+.dup { background: var(--dup-tile); color: var(--dup-text); --accent: var(--dup-accent); }
+.sim { background: var(--sim-tile); color: var(--sim-text); --accent: var(--sim-accent); }
+.shot { background: var(--shot-tile); color: var(--shot-text); --accent: var(--shot-accent); }
+.vid { background: var(--vid-tile); color: var(--vid-text); --accent: var(--vid-accent); }
+.live { background: var(--live-tile); color: var(--live-text); --accent: var(--live-accent); }
+.blur { background: var(--blur-tile); color: var(--blur-text); --accent: var(--blur-accent); }
+.plain { background: var(--surface); border: 1px solid var(--stroke); --accent: var(--link); }
+.card ul { margin: 0 0 12px; padding-left: 20px; }
+.card li { margin-bottom: 4px; }
+.card a, .plain a, footer a, .page > p a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+footer { margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--stroke); color: var(--secondary); font-size: 15px; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 10px; }
+footer nav a { color: var(--link); }
+@media (min-width: 640px) { h1 { font-size: 40px; } .page { padding-top: 40px; } }
+
+details.card { border-radius: 14px; margin-bottom: 12px; padding: 0; }
+details.card summary {
+  list-style: none; cursor: pointer; padding: 16px 48px 16px 18px; font-weight: 600; font-size: 18px; line-height: 1.35;
+  position: relative; min-height: 44px; display: flex; align-items: center; gap: 10px;
+}
+details.card summary::-webkit-details-marker { display: none; }
+details.card summary::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none; }
+details.card summary::after {
+  content: "+"; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: 400;
+}
+details.card[open] summary::after { content: "−"; }
+details.card summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 14px; }
+details.card .answer { padding: 0 18px 8px; }
+details.card ol { margin: 0 0 12px; padding-left: 22px; }
+details.card li { margin-bottom: 4px; }
+details.card a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.contact {
+  background: var(--surface); border: 1px solid var(--stroke); border-radius: 22px; padding: 20px; margin: 28px 0 8px;
+}
+.button {
+  display: flex; align-items: center; justify-content: center; min-height: 56px; margin-top: 14px; padding: 0 20px;
+  background: var(--violet); color: var(--violet-text); border-radius: 16px; font-weight: 600; text-decoration: none; text-align: center;
+}
+h2.section { font-size: 22px; margin: 28px 0 12px; }
+
+img.mark { border-radius: 10px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="brand">
+    <a href="/dual-n-back/">
+      <img class="mark" src="/images/dual-n-back.png" width="44" height="44" alt="" aria-hidden="true">
+      <span><span class="brand-name">Dual N-Back</span><br><span class="brand-by">by Eliteviber</span></span>
+    </a>
+  </header>
+
+  <h1>Dual N-Back support</h1>
+  <p class="lede">A mathematically fair dual n-back trainer for working memory and focus, on iPhone and iPad. No ads, no account, and nothing you do leaves your device.</p>
+
+  <a class="button" href="https://apps.apple.com/app/id6785411605">Get Dual N-Back on the App Store</a>
+
+  <h2 class="section">Common questions</h2>
+
+  <details class="card dup">
+    <summary>How do I play?</summary>
+    <div class="answer">
+      <p>Each round, one square on the 3×3 grid lights up and a letter is spoken aloud. Your job is to remember what happened <strong>N turns ago</strong>.</p>
+      <ol>
+        <li>At N-2, wait for the third round before tapping anything.</li>
+        <li>Tap <strong>Position</strong> if the lit square is the same one as 2 turns back.</li>
+        <li>Tap <strong>Sound</strong> if the spoken letter is the same one as 2 turns back.</li>
+        <li>Both, one or neither can match in a round. If nothing matches, tap nothing.</li>
+      </ol>
+      <p>It is deliberately hard at first. Most people start at N-1 or N-2 and move up over a few weeks.</p>
+    </div>
+  </details>
+
+  <details class="card sim">
+    <summary>What is free, and what is Pro?</summary>
+    <div class="answer">
+      <p><strong>N-1 and N-2 are free</strong>, with no time limit, no ads and no account. Everything else in the app — your results, streaks, charts and history — is free too.</p>
+      <p><strong>Pro unlocks N-3, N-4 and N-5.</strong> You can buy it monthly, yearly, or once as a lifetime unlock. Monthly and yearly start with a 7-day free trial if you have not used one before.</p>
+    </div>
+  </details>
+
+  <details class="card shot">
+    <summary>How is my score worked out?</summary>
+    <div class="answer">
+      <p>Position and sound are scored separately, and every round counts on each. There are four outcomes per round:</p>
+      <ul>
+        <li><strong>Hit</strong> — there was a match and you tapped. Correct.</li>
+        <li><strong>Correct rejection</strong> — there was no match and you did not tap. Also correct.</li>
+        <li><strong>Miss</strong> — there was a match and you did not tap.</li>
+        <li><strong>False alarm</strong> — there was no match and you tapped.</li>
+      </ul>
+      <p>Your score is the share of rounds you got right: hits plus correct rejections, divided by the rounds played. Correctly leaving a non-match alone earns credit, and tapping everything does not score well.</p>
+    </div>
+  </details>
+
+  <details class="card vid">
+    <summary>Can I change the voice, or train in silence?</summary>
+    <div class="answer">
+      <p>Yes. In <strong>Settings</strong> you can switch the spoken letter between a male and a female voice, and the change applies from your next session.</p>
+      <p><strong>Silent mode</strong> turns the audio off completely and shows the letter on screen instead, so you can train on a train or in an office. The letter still has to be remembered the same way, so the exercise is unchanged.</p>
+    </div>
+  </details>
+
+  <details class="card live">
+    <summary>Does it work on iPad?</summary>
+    <div class="answer">
+      <p>Yes. Dual N-Back is a universal app, and the layout is built for the bigger screen rather than stretched. Your levels, results and streak are kept per device, because nothing is uploaded or synced between devices.</p>
+    </div>
+  </details>
+
+  <details class="card blur">
+    <summary>How do I restore a purchase, or cancel?</summary>
+    <div class="answer">
+      <p>If you have bought Pro before — on this device or another one signed in to the same Apple Account — open <strong>Settings</strong> in the app and tap <strong>Restore Purchases</strong>.</p>
+      <p>Subscriptions are managed by Apple, not by us. To change or cancel, open the iOS <strong>Settings</strong> app, tap your name, then <strong>Subscriptions</strong>. Cancelling stops the next renewal; you keep Pro until the period you have paid for ends.</p>
+    </div>
+  </details>
+
+  <details class="card plain">
+    <summary>Does Dual N-Back collect any data?</summary>
+    <div class="answer">
+      <p>No. There is no account, no analytics and no tracking, and the app has no servers. Your sessions are stored only on your device. Read the <a href="/dual-n-back/privacy/">privacy policy</a>.</p>
+    </div>
+  </details>
+
+  <div class="contact">
+    <h2>Still stuck?</h2>
+    <p>Email us and we will help. It helps to say which iPhone or iPad you have and what you were doing.</p>
+    <a class="button" href="mailto:eliteviber@outlook.com?subject=Dual%20N-Back%20support">Email eliteviber@outlook.com</a>
+  </div>
+
+  <footer>
+    <nav><a href="/dual-n-back/privacy/">Privacy policy</a><a href="/dual-n-back/terms/">Terms of use</a><a href="mailto:eliteviber@outlook.com">Contact</a></nav>
+    <p>© 2026 Eliteviber. Dual N-Back is free to try, with no ads.</p>
+  </footer>
+</div>
+</body>
+</html>
