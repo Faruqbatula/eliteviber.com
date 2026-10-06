@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eliteviber</title>
+<meta name="description" content="Eliteviber makes calm, private iPhone apps.">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<style>
+/* Bold Tiles Refined (BUILD.md §3). System fonts only; nothing loaded from anywhere else. */
+:root {
+  --bg: #FFFFFF; --surface: #F7F6FC; --stroke: #E9E7F5; --text: #1A1A2E; --secondary: #5F5E5A;
+  --violet: #534AB7; --violet-text: #FFFFFF; --violet-sub: #E2E0FB; --link: #534AB7;
+  --dup-tile: #FAECE7; --dup-text: #712B13; --dup-accent: #D85A30;
+  --sim-tile: #EEEDFE; --sim-text: #3C3489; --sim-accent: #7F77DD;
+  --shot-tile: #E1F5EE; --shot-text: #085041; --shot-accent: #1D9E75;
+  --vid-tile: #FAEEDA; --vid-text: #633806; --vid-accent: #BA7517;
+  --live-tile: #FBEAF0; --live-text: #72243E; --live-accent: #D4537E;
+  --blur-tile: #E6F1FB; --blur-text: #0C447C; --blur-accent: #378ADD;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121218; --surface: #1C1B25; --stroke: #2C2B38; --text: #F2F1F7; --secondary: #ABA9B6;
+    --violet: #3F3794; --violet-text: #FFFFFF; --violet-sub: #DAD7FA; --link: #9D96F0;
+    --dup-tile: #3A1F16; --dup-text: #F7C7B4; --dup-accent: #F0875F;
+    --sim-tile: #27244C; --sim-text: #D2CEFB; --sim-accent: #9D96F0;
+    --shot-tile: #10362B; --shot-text: #A6E5CD; --shot-accent: #3CC495;
+    --vid-tile: #3A2B10; --vid-text: #F5D08F; --vid-accent: #E0A23A;
+    --live-tile: #3E1A29; --live-text: #F6BDD1; --live-accent: #E87BA2;
+    --blur-tile: #122D48; --blur-text: #B6D7F6; --blur-accent: #5AA5EE;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.page { max-width: 720px; margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) 16px 48px; }
+header.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+header.brand a { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; }
+.mark { width: 44px; height: 44px; flex: none; }
+.brand-name { font-weight: 700; font-size: 20px; }
+.brand-by { color: var(--secondary); font-size: 14px; }
+h1 { font-size: 34px; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 { font-size: 21px; line-height: 1.25; margin: 0 0 8px; }
+p { margin: 0 0 12px; }
+.lede { color: var(--secondary); margin-bottom: 24px; }
+.hero {
+  background: var(--violet); color: var(--violet-text); border-radius: 22px; padding: 22px 20px; margin-bottom: 28px;
+}
+.hero h2 { font-size: 24px; margin-bottom: 10px; }
+.hero ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; color: var(--violet-sub); }
+.hero li { position: relative; padding-left: 26px; }
+.hero li::before { content: "✓"; color: var(--violet-text); font-weight: 700; position: absolute; left: 0; }
+section.card {
+  border-radius: 14px; padding: 18px 18px 8px; margin-bottom: 14px; position: relative;
+}
+section.card h2 { display: flex; align-items: center; gap: 10px; }
+section.card h2::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none;
+}
+.dup { background: var(--dup-tile); color: var(--dup-text); --accent: var(--dup-accent); }
+.sim { background: var(--sim-tile); color: var(--sim-text); --accent: var(--sim-accent); }
+.shot { background: var(--shot-tile); color: var(--shot-text); --accent: var(--shot-accent); }
+.vid { background: var(--vid-tile); color: var(--vid-text); --accent: var(--vid-accent); }
+.live { background: var(--live-tile); color: var(--live-text); --accent: var(--live-accent); }
+.blur { background: var(--blur-tile); color: var(--blur-text); --accent: var(--blur-accent); }
+.plain { background: var(--surface); border: 1px solid var(--stroke); --accent: var(--link); }
+.card ul { margin: 0 0 12px; padding-left: 20px; }
+.card li { margin-bottom: 4px; }
+.card a, .plain a, footer a, .page > p a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+footer { margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--stroke); color: var(--secondary); font-size: 15px; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 10px; }
+footer nav a { color: var(--link); }
+@media (min-width: 640px) { h1 { font-size: 40px; } .page { padding-top: 40px; } }
+
+.studio { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+.studio-mark { width: 44px; height: 44px; border-radius: 12px; background: var(--violet); color: var(--violet-text);
+  display: grid; place-items: center; font-weight: 800; font-size: 22px; flex: none; }
+.studio-name { font-weight: 700; font-size: 20px; }
+h2.section { font-size: 22px; margin: 32px 0 12px; }
+.app {
+  display: flex; gap: 16px; align-items: flex-start; padding: 18px; border-radius: 22px;
+  background: var(--sim-tile); color: var(--sim-text); text-decoration: none;
+}
+.app:focus-visible { outline: 3px solid var(--sim-accent); outline-offset: 3px; }
+.app-icon { width: 64px; height: 64px; flex: none; }
+.app h3 { margin: 0 0 4px; font-size: 21px; }
+.app p { margin: 0 0 10px; }
+.app .more { font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.contact {
+  background: var(--surface); border: 1px solid var(--stroke); border-radius: 22px; padding: 20px; margin-top: 32px;
+}
+.contact h2 { margin-bottom: 6px; }
+.contact a { color: var(--link); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="studio">
+    <span class="studio-mark" aria-hidden="true">E</span>
+    <span class="studio-name">Eliteviber</span>
+  </header>
+
+  <h1>Calm, private apps for iPhone.</h1>
+  <p class="lede">Eliteviber is a small studio in London making iPhone and iPad apps that respect your time and your privacy: no ads, no accounts, nothing uploaded.</p>
+
+  <h2 class="section">Apps</h2>
+  <a class="app" href="/tidyroll/">
+    <svg class="app-icon" viewBox="0 0 44 44" aria-hidden="true">
+        <rect width="44" height="44" rx="10" fill="#534AB7"/>
+        <circle cx="22" cy="22" r="12" fill="none" stroke="#EEEDFE" stroke-opacity=".35" stroke-width="5"/>
+        <path d="M22 10a12 12 0 0 1 11.4 8.3" fill="none" stroke="#F0875F" stroke-width="5"/>
+        <path d="M33.4 18.3A12 12 0 0 1 28 32.4" fill="none" stroke="#3CC495" stroke-width="5"/>
+        <path d="M28 32.4A12 12 0 0 1 12.3 29" fill="none" stroke="#E87BA2" stroke-width="5"/>
+        <path d="M22 17.5l1.2 3.3 3.3 1.2-3.3 1.2L22 26.5l-1.2-3.3-3.3-1.2 3.3-1.2z" fill="#FFFFFF"/>
+      </svg>
+    <div>
+      <h3>Tidyroll</h3>
+      <p>A calm way to clear up your camera roll. Free, private, and nothing is deleted without Apple's own confirmation.</p>
+      <span class="more">Support and privacy</span>
+    </div>
+  </a>
+
+  <div class="contact">
+    <h2>Contact</h2>
+    <p>Questions, ideas or problems: <a href="mailto:eliteviber@outlook.com">eliteviber@outlook.com</a></p>
+  </div>
+
+  <footer>
+    <p>© 2026 Eliteviber, London, United Kingdom.</p>
+  </footer>
+</div>
+</body>
+</html>
